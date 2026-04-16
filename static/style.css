@@ -1,0 +1,151 @@
+/* Paleta de Cores Sgv.artes - Tons de Bege e Marrom */
+:root {
+    --bege-fundo: #F5F5DC;      /* Bege claro (Beige) */
+    --marrom-detalhe: #8B4513;  /* Marrom (SaddleBrown) */
+    --bege-escuro: #D2B48C;    /* Marrom claro/Tan para o cabeçalho/rodapé */
+    --branco: #ffffff;
+    --texto: #3E2723;          /* Marrom bem escuro para facilitar a leitura */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bege-fundo);
+    color: var(--texto);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Cabeçalho e Rodapé com Bege quase Marrom */
+header, footer {
+    text-align: center;
+    background-color: var(--bege-escuro);
+    color: var(--texto);
+    border-bottom: 4px solid var(--marrom-detalhe);
+}
+
+header {
+    padding: 60px 0;
+    margin-bottom: 40px;
+}
+
+footer {
+    padding: 40px;
+    margin-top: 60px;
+    border-bottom: none;
+    border-top: 4px solid var(--marrom-detalhe);
+    font-size: 0.9em;
+}
+
+header h1 {
+    font-size: 3.5em;
+    margin: 0;
+    letter-spacing: 3px;
+    font-weight: bold;
+    color: var(--marrom-detalhe);
+}
+
+/* Títulos das Seções */
+h2 {
+    text-align: left;
+    color: var(--marrom-detalhe);
+    border-left: 6px solid var(--marrom-detalhe);
+    padding-left: 15px;
+    margin: 60px 0 30px;
+    text-transform: uppercase;
+}
+
+/* Grid e Cartões */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Ajustado para não ficar largo demais */
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.card {
+    background: white;
+    border-radius: 8px; /* Cantos um pouco menos arredondados para economizar espaço */
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra mais suave */
+    border: 1px solid #DEB887;
+    text-align: center;
+    transition: transform 0.2s; /* Efeito leve ao passar o mouse */
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Aumentamos um pouco para dar destaque */
+    object-fit: cover; /* Faz a imagem preencher todo o quadrado sem sobrar espaço */
+    object-position: center; /* Centraliza a foto para o rótulo aparecer melhor */
+    border-bottom: 1px solid #DEB887; /* Linha sutil para separar a foto do texto */
+}
+
+.card-body {
+    padding: 10px; /* Menos preenchimento interno */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body h3 {
+    font-size: 1em; /* Título menor */
+    margin: 5px 0;
+    color: #5D4037;
+}
+
+.card-body p {
+    font-size: 0.8em; /* Textos de referência menores */
+    margin: 2px 0;
+}
+
+.preco {
+    font-size: 1.5em;
+    color: #5D4037;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Badges de Estoque */
+.badge {
+    font-size: 0.75em; /* Badge menor */
+    padding: 3px 8px;
+    margin-top: 5px;
+}
+
+.link-linha {
+    font-size: 0.8em; /* Link menor */
+    margin-top: 8px;
+}
+
+.disponivel { background: #E8F5E9; color: #2E7D32; }
+.esgotado { background: #FFEBEE; color: #C62828; }
+
+/* Botão WhatsApp personalizado para combinar */
+.btn-whatsapp {
+    display: block;
+    background: var(--marrom-detalhe);
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.btn-whatsapp:hover {
+    opacity: 0.9;
+}

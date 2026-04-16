@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sgv.artes | Catálogo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Sgv.artes</h1>
+        <p>Arte em cada ponto, carinho em cada detalhe.</p>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Nossos Sousplats</h2>
+            <div class="grid">
+                {% for p in produtos %}
+                <div class="card">
+                    <img src="{{ url_for('static', filename='uploads/' + p.imagem) }}">
+                    <div class="card-body">
+                        <h3>{{ p.nome }}</h3>
+                        <p class="preco">R$ {{ "%.2f"|format(p.preco) }}</p>
+                        <a href="https://wa.me/{{ zap }}?text=Olá! Gostaria de encomendar o {{ p.nome }}." class="btn-whatsapp" target="_blank">Encomendar</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section style="margin-top: 50px;">
+            <h2>Cores Disponíveis</h2>
+            <div class="grid">
+                {% for l in linhas %}
+                <div class="card">
+                    <img src="{{ url_for('static', filename='uploads/' + l.imagem_linha) }}">
+                    <div class="card-body">
+                        <h3>{{ l.nome_linha }}</h3>
+                        {% if l.estoque_novelos > 0 %}
+                            <span class="badge disponivel">✓ {{ l.estoque_novelos }} em estoque</span>
+                            <a href="https://wa.me/{{ zap }}?text=Gostaria de um conjunto na cor {{ l.nome_linha }}." class="link-linha" target="_blank">Quero nesta cor</a>
+                        {% else %}
+                            <span class="badge esgotado">✕ Esgotado</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <a href="https://wa.me/{{ zap }}?text=Olá! Gostaria de tirar uma dúvida." 
+       style="position:fixed; width:60px; height:60px; bottom:20px; right:20px; background-color:#25d366; color:#FFF; border-radius:50px; text-align:center; font-size:30px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); z-index:1000; display: flex; justify-content: center; align-items: center; text-decoration: none;" target="_blank">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width: 35px;">
+    </a>
+
+    <footer>
+        <p><strong>Sgv.artes</strong> - Salto, SP</p>
+    </footer>
+</body>
+</html>

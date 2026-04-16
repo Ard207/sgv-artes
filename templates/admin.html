@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Sgv.artes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { background-color: #f4f4f4; color: #333; }
+        .admin-container { max-width: 900px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1, h2 { color: #8B4513; border-bottom: 2px solid #DEB887; padding-bottom: 10px; }
+        .form-group { margin-bottom: 20px; padding: 15px; border: 1px solid #eee; border-radius: 8px; }
+        input[type="text"], input[type="number"], input[type="file"] { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        .btn-add { background-color: #5D4037; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .btn-add:hover { background-color: #8B4513; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f8f8; }
+        .btn-delete { color: #d9534f; text-decoration: none; font-weight: bold; font-size: 0.9em; }
+        .btn-delete:hover { text-decoration: underline; }
+        .img-preview { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <h1>Painel de Controle Sgv.artes</h1>
+
+    <section>
+        <h2>Cadastrar Novo Sousplat</h2>
+        <form action="{{ url_for('add_produto') }}" method="POST" enctype="multipart/form-data" class="form-group">
+            <label>Nome do Produto:</label>
+            <input type="text" name="nome" placeholder="Ex: Sousplat Girassol" required>
+            
+            <label>Preço (R$):</label>
+            <input type="number" step="0.01" name="preco" placeholder="0.00" required>
+            
+            <label>Foto do Produto:</label>
+            <input type="file" name="imagem" accept="image/*" required>
+            
+            <button type="submit" class="btn-add">Adicionar ao Catálogo</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in produtos %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='uploads/' + p.imagem) }}" class="img-preview"></td>
+                    <td>{{ p.nome }}</td>
+                    <td>R$ {{ "%.2f"|format(p.preco) }}</td>
+                    <td>
+                        <a href="{{ url_for('deletar_produto', id=p.id) }}" class="btn-delete" 
+                           onclick="return confirm('Tem certeza que deseja apagar este produto?')">🗑️ Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <br><br>
+
+    <section>
+        <h2>Gerenciar Estoque de Linhas</h2>
+        <form action="{{ url_for('add_linha') }}" method="POST" enctype="multipart/form-data" class="form-group">
+            <label>Cor/Nome da Linha:</label>
+            <input type="text" name="nome_linha" placeholder="Ex: Barbante Barroco Bege" required>
+            
+            <label>Código de Barras:</label>
+            <input type="text" name="codigo_barras" placeholder="Bipe o código ou digite" required>
+            
+            <label>Quantidade de Novelos:</label>
+            <input type="number" name="estoque" placeholder="Ex: 5" required>
+            
+            <label>Foto da Linha:</label>
+            <input type="file" name="imagem_linha" accept="image/*" required>
+            
+            <button type="submit" class="btn-add">Cadastrar Linha</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Cor</th>
+                    <th>Ref/EAN</th>
+                    <th>Qtd</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in linhas %}
+                <tr>
+                    <td><img src="{{ url_for('static', filename='uploads/' + l.imagem_linha) }}" class="img-preview"></td>
+                    <td>{{ l.nome_linha }}</td>
+                    <td>{{ l.codigo_barras }}</td>
+                    <td>{{ l.estoque_novelos }}</td>
+                    <td>
+                        <a href="{{ url_for('deletar_linha', id=l.id) }}" class="btn-delete" 
+                           onclick="return confirm('Apagar esta linha do estoque?')">🗑️ Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('index') }}" style="color: #8B4513;">← Ver Catálogo do Cliente</a>
+    </div>
+</div>
+
+</body>
+</html>
